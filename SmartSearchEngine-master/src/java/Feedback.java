@@ -10,6 +10,7 @@
  */
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,6 +21,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 @WebServlet(urlPatterns = {"/Feedback"})
 public class Feedback extends HttpServlet {
@@ -59,15 +63,22 @@ public class Feedback extends HttpServlet {
         try{
         UUID uid=UUID.randomUUID();
         //PrintWriter out = new PrintWriter("C:\\Users\\lorraine\\Desktop\\myfile.txt");
-        PrintWriter out= new PrintWriter(new BufferedWriter(new FileWriter("C:\\Users\\lorraine\\Desktop\\querylog.txt", true)));
-        PrintWriter out2= new PrintWriter(new BufferedWriter(new FileWriter("C:\\Users\\lorraine\\Desktop\\rating.txt", true)));
+        //PrintWriter out= new PrintWriter(new BufferedWriter(new FileWriter("C:\\Users\\lorraine\\Desktop\\querylog.txt", true)));
+        //String path=new File(".").getAbsolutePath();
+        PrintWriter out= new PrintWriter(new BufferedWriter(new FileWriter("querylog.xml", true)));
+        PrintWriter out2= new PrintWriter(new BufferedWriter(new FileWriter("rating.xml", true)));
         //append to the existing feedback doc or open a new file
-	out.println("uuid: "+uid);
+        //default path at glassfish domains folder
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	//get current date time with Date()
+	Date date = new Date();
+	out.println("<uuid>"+uid+"</uuid>");
         out.println(results);
-        out2.println("uuid: "+uid);
-        out2.println("Rank 1: "+ doc1);
-        out2.println("Rank 2: "+doc2);
-        out2.println("Rank 3: "+doc3);
+        out.println("<datetime>"+dateFormat.format(date)+"</datetime>");
+        out2.println("<uuid>"+uid+"</uuid>");
+        out2.println("<Rank1>"+ doc1+"</Rank1>");
+        out2.println("<Rank2>"+doc2+"</Rank2>");
+        out2.println("<Rank3>"+doc3+"</Rank3>");
         out.close();
         out2.close();
         }catch (IOException e){

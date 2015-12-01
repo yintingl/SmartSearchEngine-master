@@ -68,18 +68,28 @@
 	<div class="panel panel-default">
                 <div class="panel-heading"><b>Files Returned</b></div>                
                 <div class="panel-body"> 
-                    <% String searchTerm=(String) request.getAttribute("searchTest");%> 
+                    <% String searchTerm=(String) request.getAttribute("searchTest");
+                       String role = (String) request.getAttribute("role");
+                        String layer = (String) request.getAttribute("layer");
+                        String param1 = (String) request.getAttribute("param1");
+                        String param2 = (String) request.getAttribute("param2");%> 
                     <% ArrayList<String> results = (ArrayList<String>) request.getAttribute("searchResult"); %>  
                     <% StringBuilder sb = new StringBuilder();
-                    sb.append("Search Term: "+searchTerm+"\n");
-                    sb.append("Documents Retrieved: ");%>
+                    sb.append("<role>"+role+"</role>");
+                    sb.append("<layer>"+layer+"</layer>");
+                    sb.append("<param1>"+param1+"</param1>");
+                    sb.append("<param2>"+param2+"</param2>");
+                    sb.append("<SearchTerm>"+searchTerm+"</SearchTerm>");
+                    sb.append("<DocumentsRetrieved>");
+                    %>
                     <% for (String r:results) { %>
                     <tr>
                         <td><a href="<%= r.split(",")[0]%>"><%=r.split(",")[0]%> </a></td> <br> 
                         <td><%= r.split(",")[1] %></td> <br>
                     </tr> 
                    
-                    <% sb.append(r.split(",")[0]);} %>                          
+                    <% sb.append(r.split(",")[0]);
+                        sb.append("</DocumentsRetrieved>");} %>                          
                 <br>
 		<p><b>Which are the top 3 most relevant articles?</b></p>
 			

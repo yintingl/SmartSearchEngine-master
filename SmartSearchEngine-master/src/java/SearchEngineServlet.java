@@ -47,6 +47,7 @@ public class SearchEngineServlet extends HttpServlet {
         String param2 = request.getParameter("param2"); // Place holder
         String searchTerm = request.getParameter("search_term");
         String role = request.getParameter("role");
+        String layer = request.getParameter("layer");
         
         String nextView = "";
         if (searchTerm == null ) {
@@ -58,6 +59,10 @@ public class SearchEngineServlet extends HttpServlet {
                 ArrayList<String> results = lt.testSearch(searchTerm);
                 request.setAttribute("searchResult", results); 
                 request.setAttribute("searchTest", searchTerm); //newly added line
+                request.setAttribute("role",role);
+                request.setAttribute("layer",layer);
+                request.setAttribute("param1",param1);
+                request.setAttribute("param2",param2);
                 nextView = "resultPage.jsp";
             } catch (Exception e) {
                 e.printStackTrace();
